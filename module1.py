@@ -1,61 +1,42 @@
 ﻿import random
 
+valikud = ["kivi", "käärid", "paber"]
+
+
 while True:
-    print("1. Alustada mangu")
-    print("2. Lopetada mangu")
+    print("\n1. Alustada mängu")
+    print("2. Lõpetada mängu")
+    valik = input("Sisesta number (1-2): ")
 
-    choice = input("Sisesta 1-2: ")
-
-    
-    kivi = 1
-    kaarid = 2
-    paber = 3
-
-    
-    if choice == "1":  
-        print("Kivi - 1")
-        print("Kaarid - 2")
-        print("Paber - 3")
-        move1 = input("Sisestage Arv 1-3: ")
+    if valik == "1":
+        print("Vali oma käik:")
+        print("1. kivi")
+        print("2. käärid")
+        print("3. paber")
         
-        if move1 == "1":  
-            move1 = kivi
-        elif move1 == "2":
-            move1 = kaarid
-        elif move1 == "3":
-            move1 = paber
+        try:
+            kasutaja_valik = int(input("Sisesta number (1-3): ")) - 1
+            if kasutaja_valik < 0 or kasutaja_valik > 2:
+                print("Vale valik! Palun sisesta number 1-3.")
+                continue
+        except ValueError:
+            print("Vale sisend! Palun sisesta number 1-3.")
+            continue
+
+        comp_valik = random.randint(0, 2)
+        
+        print(f"Sinu valik: {valikud[kasutaja_valik]}")
+        print(f"Arvuti valik: {valikud[comp_valik]}")
+
+        if kasutaja_valik == comp_valik:
+            print("Viik!")
+        elif (kasutaja_valik - comp_valik) % 3 == 1:
+            print("Sa võitsid!")
         else:
-            print("Vale valik. Palun sisestage arv 1-3.")
-            continue  
-        
-        move2 = random.choice([kivi, kaarid, paber])  
-        print(f"Teie valik: {move1}, Arvuti valik: {move2}")
+            print("Arvuti võitis!")
 
-        if move1 == kivi:
-            if move2 == kaarid:
-                print("Te voitsite")
-            elif move2 == paber:
-                print("Arvuti voitis")
-            else:
-                print("Viik")
-        
-        elif move1 == kaarid:
-            if move2 == paber:
-                print("Te voitsite")
-            elif move2 == kivi:
-                print("Arvuti voitis")
-            else:
-                print("Viik")
-        
-        elif move1 == paber:
-            if move2 == kivi:
-                print("Te voitsite")
-            elif move2 == kaarid:
-                print("Arvuti voitis")
-            else:
-                print("Viik")
-    elif choice == "2":  
-        print("Mang lopetatud.")
+    elif valik == "2":
+        print("Mäng lõpetatud.")
         break
     else:
-        print("Vale valik. Proovi uuesti.")
+        print("Vale valik! Palun sisesta 1 või 2.")
